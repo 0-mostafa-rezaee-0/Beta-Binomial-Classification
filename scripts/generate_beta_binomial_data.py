@@ -2,6 +2,7 @@
 import argparse
 import numpy as np
 import pandas as pd
+from pathlib import Path
 from scipy.stats import beta, binom
 
 
@@ -15,6 +16,16 @@ def generate_beta_binomial_dataset(num_groups: int, attempts_low: int, attempts_
     return pd.DataFrame({"group_id": group_ids, "attempts": attempts, "successes": successes})
 
 
+def get_project_root() -> Path:
+    """Find the project root by locating the scripts directory's parent."""
+    script_path = Path(__file__).resolve()
+    # If script is in scripts/, project root is parent
+    if script_path.parent.name == "scripts":
+        return script_path.parent.parent
+    # Otherwise, assume we're already at project root
+    return script_path.parent
+
+
 def main():
     parser = argparse.ArgumentParser(description="Generate synthetic Beta–Binomial grouped data")
     parser.add_argument("--num_groups", type=int, default=100)
@@ -26,10 +37,16 @@ def main():
     parser.add_argument("--out", type=str, default="data/beta_binomial_synthetic.csv")
     args = parser.parse_args()
 
+    # Resolve output path relative to project root
+    project_root = get_project_root()
+    output_path = project_root / args.out
+    # Ensure the output directory exists
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
     df = generate_beta_binomial_dataset(args.num_groups, args.attempts_low, args.attempts_high,
                                         args.alpha, args.beta_param, args.seed)
-    df.to_csv(args.out, index=False)
-    print(f"Wrote {len(df)} rows to {args.out}")
+    df.to_csv(output_path, index=False)
+    print(f"Wrote {len(df)} rows to {output_path}")
 
 
 if __name__ == "__main__":
