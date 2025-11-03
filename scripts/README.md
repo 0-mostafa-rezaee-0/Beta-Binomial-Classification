@@ -27,7 +27,7 @@ python scripts/beta_binomial_classifier.py --input data/beta_binomial_examples.c
 - Saves a PNG into `figures/`.
 - Example:
 ```bash
-python scripts/plot_mastery_map.py --max_attempts 20 --alpha_prior 2 --beta_prior 2 --familiar 0.3 --proficient 0.5 --confidence 0.8 --out figures/mastery_map_placeholder.png
+python scripts/plot_mastery_map.py --max_attempts 20 --alpha_prior 2 --beta_prior 2 --familiar 0.3 --proficient 0.5 --confidence 0.8 --out figures/mastery_map.png
 ```
 
 # 3. Notes
