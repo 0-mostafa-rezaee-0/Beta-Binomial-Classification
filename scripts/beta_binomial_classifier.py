@@ -3,6 +3,7 @@ import argparse
 import pandas as pd
 from dataclasses import dataclass
 from typing import Tuple
+from pathlib import Path
 from scipy.stats import beta
 
 
@@ -54,6 +55,16 @@ def classify(df: pd.DataFrame, alpha_prior: float, beta_prior: float, thresholds
     return pd.DataFrame(rows)
 
 
+def get_project_root() -> Path:
+    """Find the project root by locating the scripts directory's parent."""
+    script_path = Path(__file__).resolve()
+    # If script is in scripts/, project root is parent
+    if script_path.parent.name == "scripts":
+        return script_path.parent.parent
+    # Otherwise, assume we're already at project root
+    return script_path.parent
+
+
 def main():
     parser = argparse.ArgumentParser(description="Classify grouped outcomes with Beta–Binomial")
     parser.add_argument("--input", type=str, default="data/beta_binomial_examples.csv")
@@ -65,11 +76,16 @@ def main():
     parser.add_argument("--confidence", type=float, default=0.8)
     args = parser.parse_args()
 
+    # Resolve paths relative to project root
+    project_root = get_project_root()
+    input_path = project_root / args.input
+    output_path = project_root / args.output
+
     thresholds = Thresholds(args.familiar, args.proficient, args.confidence)
-    df = pd.read_csv(args.input)
+    df = pd.read_csv(input_path)
     out = classify(df, args.alpha_prior, args.beta_prior, thresholds)
-    out.to_csv(args.output, index=False)
-    print(f"Wrote classifications to {args.output}")
+    out.to_csv(output_path, index=False)
+    print(f"Wrote classifications to {output_path}")
 
 
 if __name__ == "__main__":
