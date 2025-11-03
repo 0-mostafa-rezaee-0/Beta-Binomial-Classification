@@ -42,6 +42,21 @@ def plot_grid(grid, max_attempts: int, out_path: str):
     cmap = plt.get_cmap('viridis', 3)
     plt.figure(figsize=(6, 6))
     plt.imshow(mat.T, origin='lower', extent=[0, max_attempts, 0, max_attempts], aspect='equal', cmap=cmap, vmin=0, vmax=2)
+    
+    # Set integer ticks only (since attempts and successes are discrete)
+    # Choose reasonable tick spacing based on max_attempts
+    if max_attempts <= 10:
+        tick_step = 1  # Show all integers for small ranges
+    elif max_attempts <= 20:
+        tick_step = 2  # Show every 2 integers
+    elif max_attempts <= 50:
+        tick_step = 5  # Show every 5 integers
+    else:
+        tick_step = 10  # Show every 10 integers for large ranges
+    ticks = np.arange(0, max_attempts + 1, tick_step)
+    plt.xticks(ticks)
+    plt.yticks(ticks)
+    
     cbar = plt.colorbar(ticks=[0, 1, 2])
     cbar.ax.set_yticklabels(["Attempted", "Familiar", "Proficient"])  # type: ignore
     plt.xlabel("Attempts")
@@ -69,7 +84,7 @@ def main():
     parser.add_argument("--familiar", type=float, default=0.3)
     parser.add_argument("--proficient", type=float, default=0.5)
     parser.add_argument("--confidence", type=float, default=0.8)
-    parser.add_argument("--out", type=str, default="figures/mastery_map_placeholder.png")
+    parser.add_argument("--out", type=str, default="figures/mastery_map.png")
     args = parser.parse_args()
 
     # Resolve output path relative to project root
