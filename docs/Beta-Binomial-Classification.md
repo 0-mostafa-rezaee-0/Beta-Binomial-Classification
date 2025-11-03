@@ -139,21 +139,21 @@ So if you're classifying based on **counts per entity**, not individual labels, 
 
 ## 7. Strengths
 
-✅ **Handles overdispersion** — realistic when variance > Binomial variance
-✅ **Hierarchical structure** — models between-group variability
-✅ **Probabilistic predictions** — uncertainty baked in
-✅ **Conjugate** — nice analytical properties in Bayesian inference
-✅ **Useful with small samples** — prior smooths sparse data
+- ✅ **Handles overdispersion** — realistic when variance > Binomial variance
+- ✅ **Hierarchical structure** — models between-group variability
+- ✅ **Probabilistic predictions** — uncertainty baked in
+- ✅ **Conjugate** — nice analytical properties in Bayesian inference
+- ✅ **Useful with small samples** — prior smooths sparse data
 
 ---
 
 ## 8. Weaknesses
 
-❌ **Limited flexibility** for complex covariates (you can't plug in features easily — need extensions like Beta–Binomial regression)
-❌ **Not scalable** for very large data (compared to logistic regression)
-❌ **Assumes Beta prior is appropriate** — sometimes too restrictive
-❌ **Harder interpretability** for non-statisticians
-❌ **Only binary outcomes** — not for multi-class without extensions
+- ❌ **Limited flexibility** for complex covariates (you can't plug in features easily — need extensions like Beta–Binomial regression)
+- ❌ **Not scalable** for very large data (compared to logistic regression)
+- ❌ **Assumes Beta prior is appropriate** — sometimes too restrictive
+- ❌ **Harder interpretability** for non-statisticians
+- ❌ **Only binary outcomes** — not for multi-class without extensions
 
 ---
 
@@ -227,9 +227,12 @@ We want to **classify mastery** ("Proficient," "Familiar," "Attempted," etc.) fr
 
 This is *exactly* the use case for a **Beta–Binomial**:
 
-[
-p_i \sim \text{Beta}(\alpha, \beta), \quad y_i \mid p_i \sim \text{Binomial}(n_i, p_i)
-]
+```math
+\begin{align*}
+p_i &\sim \text{Beta}(\alpha, \beta) \\
+y_i | p_i &\sim \text{Binomial}(n_i, p_i)
+\end{align*}
+```
 
 * It assumes a **latent ability (p)** per student or per concept.
 * It gives **posterior probabilities of mastery** even with few attempts.
