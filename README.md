@@ -39,12 +39,30 @@ docker-compose ps
 ```
 Confirm the container is up and port 8888 is mapped.
 
-## 1.4 Scripts
+## 1.4 Run Python Scripts
+
+In the VS Code terminal (inside the container), run:
+
 ```bash
-# Inside the container or local env with deps installed
-python scripts/generate_beta_binomial_data.py --out data/beta_binomial_synthetic.csv
-python scripts/beta_binomial_classifier.py --input data/beta_binomial_examples.csv --output data/beta_binomial_classified.csv
-python scripts/plot_mastery_map.py --out figures/mastery_map_placeholder.png
+python scripts/generate_beta_binomial_data.py
+```
+
+You should see the expected output (for example, confirmation message).
+
+## 1.5 Work with Jupyter Notebooks in VS Code
+
+- Open `notebooks/1_Intro_Beta_Binomial.ipynb` in VS Code.
+
+- In VS Code, install the following extensions: Docker, Dev Containers, Python, Jupyter.
+
+- VS Code will prompt you to select a kernel. Choose the Python kernel that is specified in the Dockerfile. The libraries that have been listed in the `requirements.txt` and installed in the docker will be run automatically.
+
+- Now you can run and edit cells directly in VS Code.
+
+## 1.6 Stop and Remove the Container
+
+```bash
+docker-compose down
 ```
 
 # 2. Repository Structure
