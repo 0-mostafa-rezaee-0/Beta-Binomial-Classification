@@ -53,7 +53,7 @@ You should see the expected output (for example, confirmation message).
 
 - Open `notebooks/1_Intro_Beta_Binomial.ipynb` in VS Code.
 
-- In VS Code, install the following extensions: Docker, Dev Containers, Python, Jupyter.
+- In VS Code, install the following extensions: `Docker`, `Dev Containers`, `Python`, `Jupyter`.
 
 - VS Code will prompt you to select a kernel. Choose the Python kernel that is specified in the Dockerfile. The libraries that have been listed in the `requirements.txt` and installed in the docker will be run automatically.
 
