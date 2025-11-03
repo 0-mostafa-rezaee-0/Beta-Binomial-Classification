@@ -16,21 +16,14 @@ This folder contains small educational datasets for Beta–Binomial classificati
 
 # 3. Schema
 
-- group_id: string identifier of the group/entity
-- attempts: total trials (non-negative integer)
-- successes: number of successful trials (integer in [0, attempts])
+- **group_id**
+    - string identifier of the group/entity (e.g., learner, item, cohort)
+- **attempts**
+    - total trials (non-negative integer)
+- **successes**
+    - number of successful trials (integer in [0, attempts])
 
-# 4. Usage
-
-You can load these datasets with pandas:
-```python
-import pandas as pd
-
-examples = pd.read_csv('data/beta_binomial_examples.csv')
-synthetic = pd.read_csv('data/beta_binomial_synthetic.csv')
-```
-
-# 5. Notes
+# 4. Notes
 
 - Data are illustrative and small by design for clarity.
 - For larger experiments, see the script `scripts/generate_beta_binomial_data.py` (to be added) which can create customized synthetic datasets.
